@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+{% block content %}
+<main class="form-signin">
+    <form>
+        <img class="mb-4" src="photo_2023-09-13_23-50-02-removebg-preview.png" alt="" width="300" height="300">
+        <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Зарегистрировать</button>
+    </form>
+</main>
+{% endblock %}
