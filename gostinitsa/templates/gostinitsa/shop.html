@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load gostinitsa_tags %}
+{% block title %}
+Гостиницы
+{% endblock %}
+{% block content %}
+    <ul>
+        {% get_gostinitsas as gostinitsas %}
+        {% for gostin in gostinitsas %}
+            <li><a href="{% url 'gostinitsa' gostin.id %}">{{ gostin.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
