@@ -1,0 +1,3 @@
+{% for gostin in gostinitsas %}
+    <li><a href="{% url 'gostinitsa' gostin.id %}">{{ gostin.name }}</a></li>
+{% endfor %}

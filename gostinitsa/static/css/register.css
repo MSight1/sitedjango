@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #111111; /* Цвет фона */
+}
+
+main {
+    text-align: center;
+}
+
+h1 {
+    color: white; /* Цвет текста */
+}
+
+
+
+.form-signin {
+    display: inline-block;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.1); /* Прозрачный фон для блока */
+    border-radius: 10px;
+}
+
+.form-floating {
+    text-align: center;
+}
+
+.form-control {
+    margin: 0 auto;
+    display: block;
+    width: 100%; /* Занимать всю ширину родительского блока */
+}
+
+.btn {
+    margin-top: 10px;
+}
