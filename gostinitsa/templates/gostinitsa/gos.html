@@ -6,11 +6,18 @@
 
 {% block content %}
 
-<h1>{{hotel.title}}</h1>
+<h1>{{ hotel.title }}</h1>
 
 {% if hotel.photo %}
-<p><img class="img-article-left" src="{{gos.photo.url}}"></p>
+<p><img class="img-article-left" src="{{ hotel.photo.url }}"></p>
 {% endif %}
 
-{{hotel.content|linebreaks}}
+<h2>Номера гостиницы:</h2>
+<ul>
+  {% for room in rooms %}
+    <li>{{ room.room_number }}</li>
+  {% endfor %}
+</ul>
+
+{{ hotel.content|linebreaks }}
 {% endblock %}
