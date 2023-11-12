@@ -5,8 +5,8 @@
 {% endblock %}
 {% block content %}
     <ul>
-        {% for el in gostinitsi %}
-            <li>{{ el.title }}   ,   {{ el.content }} </li>
+        {% for hotel in gostinitsi %}
+            <li><a href="{% url 'gostinitsa' slug=hotel.slug %}">{{ hotel.title }}   ,   {{ hotel.content }} </li>
         {% endfor %}
     </ul>
 {% endblock %}
