@@ -15,7 +15,6 @@ class Gostinitsa(models.Model):
     time_create=models.DateTimeField(auto_now_add=True)
     time_update=models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(choices=Status.choices,default=Status.DRAFT)
-
     object = models.Manager() #чтобы Gostinitsa.objects продолжали работать
     published = PublishedManager() #для работы класса отображения гостиниц
     def __str__(self):
@@ -23,3 +22,13 @@ class Gostinitsa(models.Model):
 
     def get_absolute_url(self):
         return reverse('gos', kwargs={'gos_slug':self.slug})
+class Room(models.Model):
+    class Status(models.IntegerChoices):
+        DRAFT = 0, 'Занят'
+        PUBLISHED = 1, 'Свободен'
+    hotel = models.ForeignKey(Gostinitsa, on_delete=models.CASCADE)
+    room_number = models.CharField(max_length=100)
+    open = models.BooleanField(choices=Status.choices,default=Status.PUBLISHED)
+    def __str__(self):
+        return self.room_number
+
