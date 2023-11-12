@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from gostinitsa.models import Gostinitsa
+from gostinitsa.models import Gostinitsa, Room
 
 
 def index(request):
@@ -12,7 +12,7 @@ def catalog(request):
     return render(request,'gostinitsa/shop.html', {'gostinitsi': gostsinitsi})
 
 def show_gostinitsa(request, slug):
-
     hotel = get_object_or_404(Gostinitsa, slug=slug)
+    rooms = Room.objects.filter(hotel=hotel, is_status=Room.Status.AVAILABLE)
 
-    return render(request, 'gostinitsa/gos.html', {'hotel': hotel})
+    return render(request, 'gostinitsa/gos.html', {'hotel': hotel, 'rooms': rooms})
