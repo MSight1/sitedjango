@@ -5,9 +5,8 @@
 {% endblock %}
 {% block content %}
     <ul>
-        {% get_gostinitsas as gostinitsas %}
-        {% for gostin in gostinitsas %}
-            <li><a href="{% url 'gostinitsa' gostin.id %}">{{ gostin.name }}</a></li>
+        {% for hotel in gostinitsi %}
+            <li><a href="{% url 'gostinitsa' slug=hotel.slug %}">{{ hotel.title }}   ,   {{ hotel.content }} </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content %}
+
+<h1>{{hotel.title}}</h1>
+
+{% if hotel.photo %}
+<p><img class="img-article-left" src="{{gos.photo.url}}"></p>
+{% endif %}
+
+{{hotel.content|linebreaks}}
+{% endblock %}

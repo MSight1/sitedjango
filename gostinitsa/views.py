@@ -1,23 +1,18 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from gostinitsa.models import Gostinitsa
+
 
 def index(request):
     return render(request, 'gostinitsa/index.html')
-def register(request):
-        return render(request,'gostinitsa/registertest.html')
-def login(request):
-    return render(request,'gostinitsa/login.html')
 def about(request):
     return render(request,'gostinitsa/about.html')
 def catalog(request):
-    return render(request,'gostinitsa/shop.html')
+    gostsinitsi = Gostinitsa.published.all()
+    return render(request,'gostinitsa/shop.html', {'gostinitsi': gostsinitsi})
 
-def show_gostinitsa(request, gos_id):
-    return index(request)
+def show_gostinitsa(request, slug):
 
+    hotel = get_object_or_404(Gostinitsa, slug=slug)
 
-gostinitsa_db = [
-    {'id':1,'name':'Гостиница ахуенная'},
-    {'id':2,'name':'Гостиница пиздатая'},
-    {'id':3,'name':'Гостиница крутая'},
-]
+    return render(request, 'gostinitsa/gos.html', {'hotel': hotel})
