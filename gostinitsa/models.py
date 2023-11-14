@@ -37,12 +37,12 @@ class Gostinitsa(models.Model):
 
 class Room(models.Model):
     class Status(models.IntegerChoices):
-        OCCUPIED = 0, 'Свободен'
-        AVAILABLE = 1, 'Занят'
+        AVAILABLE = 1, 'Свободен'
+        OCCUPIED = 0, 'Занят'
 
     hotel = models.ForeignKey(Gostinitsa, on_delete=models.CASCADE, verbose_name='Принадлежит гостинице')
     room_number = models.CharField(max_length=100, verbose_name='Номер комнаты')
-    is_status = models.IntegerField(choices=tuple(map(lambda x:(bool(x[0]),x[1]),Status.choices)), default=Status.AVAILABLE, verbose_name='Статус')
+    is_status = models.IntegerField(choices=Status.choices, default=Status.AVAILABLE, verbose_name='Статус')
 
     objects = models.Manager()
     status = StatusManager()
@@ -50,7 +50,7 @@ class Room(models.Model):
     class Meta:
         verbose_name = 'Комната'
         verbose_name_plural = 'Комнаты'
-        ordering = ['room_number']
+        ordering = ['hotel' , 'room_number']
         indexes = [models.Index(fields=['room_number'])]
     def __str__(self):
         return self.room_number
