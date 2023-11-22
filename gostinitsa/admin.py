@@ -5,6 +5,8 @@ from .models import Gostinitsa, Room
 
 @admin.register(Gostinitsa)
 class GostinitsaAdmin(admin.ModelAdmin):
+    #readonly_fields = ['slug']
+    prepopulated_fields = {'slug':('title', )}
     list_display = ('title', 'time_create', 'is_published', 'link_to_rooms')
     list_display_links = ('title', )
     ordering = ['time_create','title']
