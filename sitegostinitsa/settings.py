@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'gostinitsa.apps.GostinitsaConfig',
-    'users.apps.UsersConfig',
+    'users',
 ]
 
 MIDDLEWARE = [
