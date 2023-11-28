@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load gostinitsa_tags %}
+{% block title %}
+Запросы
+{% endblock %}
+{% block content %}
+    <ul>
+        {% for req in requests %}
+            <li><a href="{% url 'requests' %}">{{ req.item }}   ,   {{ req.id }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

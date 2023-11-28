@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
+
 def traislit_to_end(s: str) -> str:  #костыль для перевода русского текста в слаг транслитом
     d = {'а': 'a', 'б':'b', 'в':'v','г':'g', 'д':'d', 'е':'e', 'ё':'yo', 'ж':'zh', 'з':'z',
     'и':'i', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o', 'п':'p', 'р':'r', 'с':'s', 'т':'t',
@@ -43,9 +44,7 @@ class Gostinitsa(models.Model):
         indexes = [models.Index(fields=['-time_create'])]
     def get_absolute_url(self):
         return reverse('gos', kwargs={'gos_slug': self.slug})
-    # save(self, *args, **kwargs):
-      #  self.slug=slugify(traislit_to_end(self.title))
-       # super().save(*args, **kwargs)
+
 
 class Room(models.Model):
     class Status(models.IntegerChoices):
@@ -69,3 +68,18 @@ class Room(models.Model):
 
 
 ###Пользователь
+class Reservation(models.Model):
+    class Status(models.IntegerChoices):
+        COMPLETE = 1, 'Рассмотренна'
+        NEW = 0, 'Не рассмотренна'
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.CharField(max_length=100)
+    date = models.CharField(max_length=100)
+    booking_date = models.DateTimeField(auto_now_add=True)
+
+    status = models.IntegerField(choices=Status.choices, default=Status.NEW, verbose_name='Статус')
+
+
+    objects = models.Manager()
+    def __str__(self):
+        return self.item
