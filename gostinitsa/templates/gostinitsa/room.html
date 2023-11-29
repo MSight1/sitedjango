@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Номер {{ room.room_number }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ room.room_number }}</h1>
+
+{% if hotel.photo %}
+<p><img class="img-article-left" src="{{ hotel.photo.url }}"></p>
+{% endif %}
+
+<form method="post" action="{% url 'reserve_room' hotel_id=hotel.id room_number=room.room_number %}">
+  {% csrf_token %}
+  <label for="check_in_date">Дата заезда:</label>
+  {{ form.check_in_date }}
+
+  <label for="duration">Продолжительность пребывания (в днях):</label>
+  {{ form.duration }}
+
+  <button type="submit">Забронировать</button>
+</form>
+
+{% endblock %}

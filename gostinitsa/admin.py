@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
-from .models import Gostinitsa, Room
+from .models import Gostinitsa, Room, Reservation
 
 @admin.register(Gostinitsa)
 class GostinitsaAdmin(admin.ModelAdmin):
@@ -55,3 +55,31 @@ class RoomAdmin(admin.ModelAdmin):
         self.message_user(request, f'Номера в выбранных гостиницах: {room_numbers}')
 
     show_room_numbers.short_description = 'Показать номера гостиницы'
+
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'room', 'check_in_date', 'duration', 'status', 'booking_date')  # Изменены поля для отображения
+    list_display_links = ('id',)
+    ordering = ['id', 'check_in_date', 'status']  # Изменено поле сортировки
+    list_editable = ['status', ]
+    search_fields = ['user__username', 'room__room_number']  # Изменено поле поиска
+    list_filter = ['check_in_date', 'status']  # Изменено поле фильтрации
+
+    @admin.action(description='Подтвердить выбранные брони')
+    def confirm_reservations(self, request, queryset):
+        count = queryset.update(status=Reservation.Status.CONFIRMED)
+        self.message_user(request, f'Изменено {count} записей.')
+
+    @admin.action(description='Отменить выбранные брони')
+    def cancel_reservations(self, request, queryset):
+        count = queryset.update(status=Reservation.Status.CANCELED)
+        self.message_user(request, f'Изменено {count} записей.')
+
+    def show_reservation_details(self, request, queryset):
+        reservation_details = ', '.join(
+            f'ID: {reservation.id}, Пользователь: {reservation.user.username}, Комната: {reservation.room.room_number}, Дата заезда: {reservation.check_in_date}, Продолжительность: {reservation.duration}, Статус: {reservation.status}, Дата бронирования: {reservation.booking_date}'
+            for reservation in queryset
+        )
+        self.message_user(request, f'Детали выбранных броней: {reservation_details}')
+
+    show_reservation_details.short_description = 'Показать детали брони'

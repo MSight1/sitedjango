@@ -15,7 +15,7 @@
 <h2>Номера гостиницы:</h2>
 <ul>
   {% for room in rooms %}
-    <li>{{ room.room_number }}</li>
+    <li><a href="{% url 'show_room' hotel_id=hotel.id room_number=room.room_number %}">{{ room.room_number }}</a></li>
   {% endfor %}
 </ul>
 

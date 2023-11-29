@@ -3,7 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 
 def traislit_to_end(s: str) -> str:  #костыль для перевода русского текста в слаг транслитом
@@ -68,18 +68,28 @@ class Room(models.Model):
 
 
 ###Пользователь
+class Item(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 class Reservation(models.Model):
     class Status(models.IntegerChoices):
-        COMPLETE = 1, 'Рассмотренна'
-        NEW = 0, 'Не рассмотренна'
+        CONFIRMED = 1, 'Одобрена'
+        CANCELED = 0, 'Отклонена'
+        PENDING_APPROVAL = 2, 'Ожидает одобрения'
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item = models.CharField(max_length=100)
-    date = models.CharField(max_length=100)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, verbose_name='Комната для бронирования')
+    check_in_date = models.DateField(default=timezone.now, verbose_name='Дата заезда')
+    duration = models.IntegerField(default=1, verbose_name='Продолжительность пребывания в днях')
     booking_date = models.DateTimeField(auto_now_add=True)
-
-    status = models.IntegerField(choices=Status.choices, default=Status.NEW, verbose_name='Статус')
-
+    status = models.IntegerField(choices=Status.choices, default=Status.PENDING_APPROVAL, verbose_name='Статус')
+    operator_decision = models.BooleanField(null=True, blank=True, verbose_name='Решение туроператора')
+    class Meta:
+        verbose_name = 'Бронирование комнаты'
+        verbose_name_plural = 'Бронирование комнат'
+        ordering = ['check_in_date', 'id']
 
     objects = models.Manager()
-    def __str__(self):
-        return self.item
+
