@@ -50,6 +50,7 @@ class Room(models.Model):
     class Status(models.IntegerChoices):
         AVAILABLE = 1, 'Свободен'
         OCCUPIED = 0, 'Занят'
+        INREQUEST = 2, 'В заявке на бронирование'
 
     hotel = models.ForeignKey(Gostinitsa, on_delete=models.CASCADE, verbose_name='Принадлежит гостинице')
     room_number = models.CharField(max_length=100, verbose_name='Номер комнаты')

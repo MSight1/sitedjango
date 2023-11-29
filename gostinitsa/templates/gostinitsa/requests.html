@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% load gostinitsa_tags %}
 {% block title %}
-    Заявки для Туроператора
+    Заявки для на бронь
 {% endblock %}
 {% block content %}
     <ul>
         {% for req in requests %}
             <li>
-                {{ req.user }} , {{ req.room }}
+                Пользователь: {{ req.user }} <br>
+                Номер: {{ req.room.room_number }} <br>
+                Отель: {{ req.room.hotel.title }} <br>
+                Статус номера: {% if req.room.is_status == 1 %}Свободен{% elif req.room.is_status == 2%}В заявке{% else %}Занят{% endif %}
                 <form method="post" action="{% url 'approve_request' req.id %}">
                     {% csrf_token %}
                     <button type="submit" name="decision" value="approve">Одобрить</button>

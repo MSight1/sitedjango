@@ -50,7 +50,7 @@ def reserve_room(request, hotel_id, room_number):
 
             reservation.save()
 
-            room.is_status = Room.Status.OCCUPIED
+            room.is_status = Room.Status.INREQUEST
             room.save()
 
             # Редирект на страницу благодарности
@@ -78,8 +78,13 @@ def reject_request(request, request_id):
     reservation.status = Reservation.Status.CANCELED
     reservation.save()
     return redirect('operator_requests')
+def operator_rooms(request):
+    gostinitsy = Gostinitsa.objects.all()
+    rooms = Room.objects.all()
+
+    return render(request, 'gostinitsa/operator_rooms.html', {'gostinitsy': gostinitsy, 'rooms': rooms})
 
 @user_passes_test(lambda u: u.is_staff, login_url='users/login')
 def requests_page(request):
-    requests = Reservation.objects.filter(status=Reservation.Status.NEW)
+    requests = Reservation.objects.filter(status=Reservation.Status.PENDING_APPROVAL)
     return render(request, 'gostinitsa/requests.html', {'requests': requests})

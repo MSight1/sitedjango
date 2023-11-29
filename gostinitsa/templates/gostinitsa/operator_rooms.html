@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+    Номера для персонала
+{% endblock %}
+{% block content %}
+    <h2>Гостиницы</h2>
+    <ul>
+        {% for gostinitsa in gostinitsy %}
+            <li>{{ gostinitsa.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Номера</h2>
+    <ul>
+        {% for room in rooms %}
+            <li>Гостиница: {{ room.hotel.title }}, Номер: {{ room.room_number }}, Статус: {% if room.is_status == 1 %}Свободен{% else %}Занят{% endif %}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

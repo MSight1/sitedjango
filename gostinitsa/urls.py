@@ -12,5 +12,6 @@ urlpatterns = [
     path('operator/requests/', views.operator_requests, name='operator_requests'),
     path('operator/approve/<int:request_id>/', views.approve_request, name='approve_request'),
     path('operator/reject/<int:request_id>/', views.reject_request, name='reject_request'),
+    path('operator/rooms/', views.operator_rooms, name='operator_rooms'),
     path('thank-you/', views.thank_you_page, name='thank_you'),
 ]
