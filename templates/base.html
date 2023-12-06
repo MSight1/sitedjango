@@ -17,35 +17,35 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  <div class="header">
+<div class="header">
     <div class="container">
-      <div class="logo">
-        <h1>Лого</h1>
-      </div>
-      <nav class="navigation">
-        <ul>
-          <li><a href="{% url 'home'%}">Главная</a></li>
-          <li><a href="{% url 'catalog'%}">Гостиницы</a></li>
-          <li><a href="{% url 'about'%}">О нас</a></li>
-        {% if user.is_staff %}
-            <li><a href="{% url 'operator_requests'%}">Запросы</a></li>
-            <li><a href="/operator/rooms/">Номера</a></li>
-        {% endif %}
-        </ul>
-      </nav>
+        <div class="logo">
+            <h1>Лого</h1>
+        </div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="{% url 'home'%}">Главная</a></li>
+                <li><a href="{% url 'catalog'%}">Гостиницы</a></li>
+                <li><a href="{% url 'about'%}">О нас</a></li>
+                {% if user.is_staff %}
+                <li><a href="{% url 'operator_requests'%}">Запросы</a></li>
+                <li><a href="/operator/rooms/">Номера</a></li>
+                {% endif %}
+            </ul>
+        </nav>
 
         {% if user.is_authenticated %}
         <div class="user-actions">
-            {{ user.username }}| <a href="{% url 'users:logout' %}"> Выйти </a>
+            <a href="{% url 'user_requests' %}">{{ user.first_name }}</a> | <a href="{% url 'users:logout' %}"> Выйти </a>
         </div>
         {% else %}
-          <div class="user-actions">
+        <div class="user-actions">
             <a href="{% url 'users:login' %}">Вход</a>
             <a href="{% url 'users:register' %}">Регистрация</a>
-          </div>
+        </div>
         {% endif %}
     </div>
-  </div>
-  {% block content %}{% endblock %}
+</div>
+{% block content %}{% endblock %}
 </body>
 </html>

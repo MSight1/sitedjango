@@ -81,20 +81,33 @@ def operator_requests(request):
 
 def approve_request(request, request_id):
     reservation = get_object_or_404(Reservation, id=request_id)
+
+    # Обновление информации о бронировании
     reservation.operator_decision = True
     reservation.status = Reservation.Status.CONFIRMED
     reservation.save()
+
+    # Обновление статуса комнаты на 'Занята'
+    room = reservation.room
+    room.is_status = Room.Status.OCCUPIED
+    room.save()
+
     return redirect('operator_requests')
 
 
 def reject_request(request, request_id):
     reservation = get_object_or_404(Reservation, id=request_id)
+
+    # Обновление информации о бронировании
     reservation.operator_decision = False
     reservation.status = Reservation.Status.CANCELED
     reservation.save()
+
+    # Обновление статуса комнаты на 'Свободна'
+    room = reservation.room
+    room.is_status = Room.Status.AVAILABLE
+    room.save()
     return redirect('operator_requests')
-
-
 @user_passes_test(lambda u: u.is_staff, login_url='users/login')
 def operator_rooms(request):
     gostinitsy = Gostinitsa.objects.all()
@@ -107,3 +120,8 @@ def operator_rooms(request):
 def requests_page(request):
     requests = Reservation.objects.filter(status=Reservation.Status.PENDING_APPROVAL)
     return render(request, 'gostinitsa/requests.html', {'requests': requests})
+
+def user_requests(request):
+    user_requests = Reservation.objects.filter(user=request.user)
+
+    return render(request, 'gostinitsa/user_requests.html', {'user_requests': user_requests})

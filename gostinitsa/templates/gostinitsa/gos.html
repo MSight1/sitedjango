@@ -62,8 +62,8 @@
 <div class="content-container">
   <h1>{{ hotel.title }}</h1>
 
-  {% if hotel.photo %}
-    <p><img class="img-article-left" src="{{ hotel.photo.url }}" alt="{{ hotel.title }}"></p>
+  {% if hotel.image %}
+  <p><img class="img-article-left" src="{{ hotel.image.url }}" alt="{{ hotel.title }}"></p>
   {% endif %}
 
   <h2>Свободные номера гостиницы:</h2>
