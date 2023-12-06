@@ -12,7 +12,41 @@
                 <strong>Номер комнаты:</strong> {{ request.room.room_number }},
                 <strong>Дата:</strong> {{ request.date }},
                 <strong>Статус:</strong> {{ request.get_status_display }}
+                {% if request.status == request.Status.CONFIRMED %}
+                    <button class="pay-button" data-request-id="{{ request.id }}">Оплатить</button>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+
+    <!-- Простое модальное окно без использования Bootstrap -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Фейковая оплата для запроса с идентификатором: <span id="fakePaymentRequestId"></span></p>
+            <button onclick="completePayment()">Завершить оплату</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.pay-button').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var requestId = button.getAttribute('data-request-id');
+                    document.getElementById('fakePaymentRequestId').innerText = requestId;
+                    document.getElementById('paymentModal').style.display = 'block';
+                });
+            });
+        });
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function completePayment() {
+            // Логика завершения оплаты
+            alert('Оплата завершена!');
+            closeModal();
+        }
+    </script>
 {% endblock %}

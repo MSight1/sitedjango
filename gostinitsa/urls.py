@@ -1,7 +1,7 @@
 from django.urls import path, include
-
+from django.conf.urls.static import static
 from gostinitsa import views
-
+from django.conf import settings
 urlpatterns = [
     path('', views.index, name='home'),
     path('about/', views.about, name='about'),
@@ -16,3 +16,6 @@ urlpatterns = [
     path('thank-you/', views.thank_you_page, name='thank_you'),
     path('user_requests/', views.user_requests, name='user_requests'),
 ]
+
+if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

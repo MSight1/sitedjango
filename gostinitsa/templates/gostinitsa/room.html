@@ -14,7 +14,7 @@
 
 <form method="post" action="{% url 'reserve_room' hotel_id=hotel.id room_number=room.room_number %}">
   {% csrf_token %}
-  <label for="check_in_date">Укажите Дату  заезда:</label>
+  <label for="check_in_date">Укажите Дату заезда:</label>
   {{ form.check_in_date }}
 
   <label for="duration">Продолжительность пребывания (в днях):</label>

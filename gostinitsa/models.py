@@ -29,7 +29,7 @@ class Gostinitsa(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'Черновик'
         PUBLISHED = 1, 'Опубликовано'
-
+    photo = models.ImageField(upload_to='images/%Y/%M/%D', blank=True, verbose_name='Фото')
     title = models.CharField(max_length=255, verbose_name='Название')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Slug')
     content = models.TextField(blank=True, verbose_name='Описание')
