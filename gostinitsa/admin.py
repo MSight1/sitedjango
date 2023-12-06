@@ -3,15 +3,15 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import Gostinitsa, Room, Reservation
 
+
 @admin.register(Gostinitsa)
 class GostinitsaAdmin(admin.ModelAdmin):
-    #readonly_fields = ['slug']
-    prepopulated_fields = {'slug':('title', )}
+    prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'time_create', 'is_published', 'link_to_rooms')
-    list_display_links = ('title', )
-    ordering = ['time_create','title']
+    list_display_links = ('title',)
+    ordering = ['time_create', 'title']
     list_editable = ['is_published']
-    actions = ['set_published', 'set_draft' , '']
+    actions = ['set_published', 'set_draft', '']
     search_fields = ['title']
     list_filter = ['is_published']
 
@@ -31,19 +31,22 @@ class GostinitsaAdmin(admin.ModelAdmin):
 
     link_to_rooms.short_description = 'Список номеров'
 
+
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display = ('room_number', 'hotel', 'is_status')
     list_display_links = ('room_number',)
-    ordering = ['room_number','is_status']
+    ordering = ['room_number', 'is_status']
     list_editable = ['is_status', ]
-    actions = ['set_aviable','set_occupied',]
+    actions = ['set_aviable', 'set_occupied', ]
     search_fields = ['hotel__title']
     list_filter = ['hotel__title', 'is_status']
+
     @admin.action(description='Опубликовать выбранные номера')
     def set_aviable(self, request, queryset):
         count = queryset.update(is_status=Room.Status.AVAILABLE)
         self.message_user(request, f'Изменено {count} записей.')
+
     @admin.action(description='Снять с публик. выбранные номера')
     def set_occupied(self, request, queryset):
         count = queryset.update(is_status=Room.Status.OCCUPIED)
@@ -56,9 +59,11 @@ class RoomAdmin(admin.ModelAdmin):
 
     show_room_numbers.short_description = 'Показать номера гостиницы'
 
+
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'room', 'check_in_date', 'duration', 'status', 'booking_date')  # Изменены поля для отображения
+    list_display = (
+    'id', 'user', 'room', 'check_in_date', 'duration', 'status', 'booking_date')  # Изменены поля для отображения
     list_display_links = ('id',)
     ordering = ['id', 'check_in_date', 'status']  # Изменено поле сортировки
     list_editable = ['status', ]

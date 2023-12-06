@@ -41,7 +41,7 @@
         {% else %}
           <div class="user-actions">
             <a href="{% url 'users:login' %}">Вход</a>
-            <a href="">Регистрация</a>
+            <a href="{% url 'users:register' %}">Регистрация</a>
           </div>
         {% endif %}
     </div>

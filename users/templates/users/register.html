@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Авторизация
+Регистрация
 {% endblock %}
 
 {% block content %}
-<h1>Авторизация</h1>
+<h1>Регистрация</h1>
 <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{next}}" />
@@ -14,7 +14,7 @@
     <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}</label>{{f}}</p>
     <div class="form-error">{{f.errors}}</div>
     {% endfor %}
-    <p><button type="submit">Войти</button></p>
+    <p><button type="submit">Регистрация</button></p>
 
 </form>
 
