@@ -47,7 +47,7 @@ class Gostinitsa(models.Model):
     class Meta:
         verbose_name = 'Гостиницы'
         verbose_name_plural = 'Гостиницы'
-        ordering = ['-time_create']
+        ordering = ['time_create']
         indexes = [models.Index(fields=['-time_create'])]
 
     def get_absolute_url(self):
@@ -61,7 +61,7 @@ class Room(models.Model):
         INREQUEST = 2, 'В заявке на бронирование'
 
     hotel = models.ForeignKey(Gostinitsa, on_delete=models.CASCADE, verbose_name='Принадлежит гостинице')
-    room_number = models.CharField(max_length=100, verbose_name='Номер комнаты')
+    room_number = models.IntegerField(verbose_name='Номер комнаты')
     is_status = models.IntegerField(choices=Status.choices, default=Status.AVAILABLE, verbose_name='Статус')
 
     objects = models.Manager()
@@ -70,11 +70,12 @@ class Room(models.Model):
     class Meta:
         verbose_name = 'Комната'
         verbose_name_plural = 'Комнаты'
-        ordering = ['hotel', 'room_number']
+        ordering = ['room_number', 'hotel']
+        unique_together = ['room_number', 'hotel']
         indexes = [models.Index(fields=['room_number'])]
 
     def __str__(self):
-        return self.room_number
+        return str(self.room_number)
 
 
 ###Пользователь

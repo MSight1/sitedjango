@@ -57,10 +57,30 @@
       transform: translateX(0);
     }
   }
+
+  .room-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 16px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none; /* Добавлено для того, чтобы ссылка не имела подчеркивания */
+  }
+
+    li {
+    display: inline-block; /* Элементы будут отображаться в строчку */
+    margin-right: 10px; /* Добавлено пространство между элементами для улучшенного визуального восприятия */
+  }
 </style>
 
 <div class="content-container">
-  <h1>{{ hotel.title }}</h1>
+  <h1>'</h1>
 
   {% if hotel.photo %}
   <p><img class="img-article-left" src="{{ hotel.photo.url }}" alt="{{ hotel.title }}"></p>
@@ -69,7 +89,9 @@
   <h2>Свободные номера гостиницы:</h2>
   <ul>
     {% for room in rooms %}
-      <li><a href="{% url 'show_room' hotel_id=hotel.id room_number=room.room_number %}">{{ room.room_number }}</a></li>
+      <li>
+        <a href="{% url 'show_room' hotel_id=hotel.id room_number=room.room_number %}" class="room-icon">{{ room.room_number }}</a>
+      </li>
     {% endfor %}
   </ul>
 

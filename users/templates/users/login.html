@@ -5,18 +5,65 @@
 {% endblock %}
 
 {% block content %}
-<h1>Авторизация</h1>
+<style>
+  /* Общие стили для формы */
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* Стили для полей ввода и меток */
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* Стили для сообщений об ошибках */
+  .form-error {
+    color: #ff0000;
+    margin-bottom: 10px;
+  }
+
+  /* Стили для кнопки отправки */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<h1>'</h1>
 <form method="post">
     {% csrf_token %}
-    <input type="hidden" name="next" value="{{next}}" />
+    <input type="hidden" name="next" value="{{ next }}" />
     <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}
-    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}</label>{{f}}</p>
-    <div class="form-error">{{f.errors}}</div>
+    <p>
+      <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+      {{ f }}
+    </p>
+    <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
     <p><button type="submit">Войти</button></p>
-
 </form>
-
 
 {% endblock %}

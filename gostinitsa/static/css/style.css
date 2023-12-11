@@ -1,0 +1,254 @@
+body {
+    background-color: #4B4B4B;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 22px;
+
+}
+
+.container {
+    /* Adjust the top margin to give space for the fixed header */
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    z-index: 1000; /* Set a higher z-index to make sure the header appears above other elements */
+}
+
+.logo img {
+    max-width: 75%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    margin-left: 110px;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navigation li {
+    display: inline-block;
+    margin-right: 20px;
+
+}
+
+.user-actions {
+    margin-left: auto;
+    display: flex;
+
+}
+
+.user-actions a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+
+.user-actions .divider {
+    border-left: 1px solid #fff;
+    height: auto;
+    margin: 0 10px;
+}
+
+.navigation a,
+.user-actions a {
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navigation a:hover,
+.user-actions a:hover {
+    color: #3E42A7;
+    transform: scale(1.1);
+}
+
+.navigation li a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 20px;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navigation li a:hover {
+    color: #3E42A7;
+    background-color: #fff;
+    transform: scale(1.1);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Трек скроллбара */
+::-webkit-scrollbar-track {
+    background-color: #4B4B4B;
+}
+
+/* Бегунок (ползунок) */
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+    border: 3px solid #f1f1f1;
+}
+
+/* Изменение внешнего вида при наведении */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #4B4B4B;
+}
+
+.header-background {
+    background-image: url('/static/images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Фиксация фона */
+    width: 100%;
+    height: 100vh; /* Высота равная 100% высоты окна просмотра */
+    filter: blur(4px);
+}
+
+.hotel-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 150px;
+    min-height: 300px;
+    background: #8A8A8A; /* Один градиентный фон */
+}
+
+.hotel-content {
+    flex: 1;
+    padding-right: 110px;
+    padding-left: 110px;
+}
+
+.hotel-item {
+    padding-right: 110px;
+    padding-left: 110px;
+    box-sizing: border-box; /* включаем границы и отступы в размеры элемента */
+}
+
+.hotel-content,
+.hotel-image {
+    margin-bottom: 10px; /* Добавляем margin между элементами */
+}
+
+.hotel-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Задаем радиус скругления углов */
+    transition: transform 0.3s ease, border-radius 0.3s ease;
+}
+
+.hotel-image img:hover {
+    transform: scale(1.05); /* Немного увеличиваем при наведении */
+    border-radius: 15px; /* Увеличиваем радиус при наведении для более плавного эффекта */
+}
+
+a {
+    color: #3E42A7;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.hotel-image {
+    flex: 1;
+    width: 50%;
+    height: auto;
+    max-width: 40%; /* Уменьшил максимальную ширину до 25% от ширины родительского контейнера */
+    max-height: 100%;
+    object-fit: cover;
+}
+.spacer {
+    height: 15px; /* Уменьшаем высоту spacer */
+}
+
+.hotel-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.even .hotel-content,
+.odd .hotel-image {
+    order: 2;
+}
+
+.even .hotel-image,
+.odd .hotel-content {
+    order: 1;
+}
+.odd .hotel-image {
+    order: 2;
+}
+
+.image-caption-container {
+    position: relative;
+}
+
+/* Стили для надписи "Смотреть номера" */
+.view-rooms-btn {
+    display: block;
+    background-color: #3E42A7;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    text-decoration: none; /* Убираем стандартное подчеркивание для ссылки */
+}
+
+
+
+.view-rooms-btn a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.view-rooms-btn:hover {
+    transform: scale(1.1);
+    background-color: #fff;
+    color: #3E42A7;
+    border-radius: 10px; /* Увеличиваем радиус при наведении для плавного эффекта */
+}
+
+.view-rooms-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px #3E42A7;
+}

@@ -4,9 +4,24 @@
 Гостиницы
 {% endblock %}
 {% block content %}
-    <ul>
+    <div class="hotels-container">
         {% for hotel in gostinitsi %}
-            <li><a href="{% url 'gostinitsa' slug=hotel.slug %}">{{ hotel.title }}   ,   {{ hotel.content }} </li>
+            <div class="hotel-item {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
+                <div class="hotel-content">
+                    <h2>{{ hotel.title }}</h2>
+                    <p>{{ hotel.content }}</p>
+                </div>
+                {% if hotel.photo %}
+                <div class="hotel-image">
+                    <img src="{{ hotel.photo.url }}" alt="{{ hotel.title }}">
+                    <!-- Обернуть изображение и надпись в контейнер -->
+                    <div class="image-caption-container">
+                        <a href="{% url 'gostinitsa' slug=hotel.slug %}" class="view-rooms-btn">Смотреть номера</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="spacer"></div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
