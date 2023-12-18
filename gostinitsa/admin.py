@@ -63,12 +63,12 @@ class RoomAdmin(admin.ModelAdmin):
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     list_display = (
-    'id', 'user', 'room', 'check_in_date', 'duration', 'status', 'booking_date')  # Изменены поля для отображения
+    'id', 'user', 'room', 'check_in_date', 'duration', 'status', 'booking_date')
     list_display_links = ('id',)
-    ordering = ['id', 'check_in_date', 'status']  # Изменено поле сортировки
+    ordering = ['id', 'check_in_date', 'status']
     list_editable = ['status', ]
-    search_fields = ['user__username', 'room__room_number']  # Изменено поле поиска
-    list_filter = ['check_in_date', 'status']  # Изменено поле фильтрации
+    search_fields = ['user__username', 'room__room_number']
+    list_filter = ['check_in_date', 'status']
 
     @admin.action(description='Подтвердить выбранные брони')
     def confirm_reservations(self, request, queryset):

@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% load gostinitsa_tags %}
 {% block title %}
-    Заявки для на бронь
+Заявки для на бронь
 {% endblock %}
 {% block content %}
-    <h2>'Ваши запросы на бронирование'</h2>
-    <ul>
-        {% for req in requests %}
-            <li>
-                Пользователь: {{ req.user }} <br>
-                Номер: {{ req.room.room_number }} <br>
-                Отель: {{ req.room.hotel.title }} <br>
-                Статус номера: {% if req.room.is_status == 1 %}Свободен{% elif req.room.is_status == 2%}В заявке{% else %}Занят{% endif %}
-                <form method="post" action="{% url 'approve_request' req.id %}">
-                    {% csrf_token %}
-                    <button type="submit" name="decision" value="approve">Одобрить</button>
-                </form>
-                <form method="post" action="{% url 'reject_request' req.id %}">
-                    {% csrf_token %}
-                    <button type="submit" name="decision" value="reject">Отклонить</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+<h2>'Ваши запросы на бронирование'</h2>
+<ul>
+    {% for req in requests %}
+    <li>
+        Пользователь: {{ req.user }} <br>
+        Отель: {{ req.room.hotel.title }} <br>
+        Номер: {{ req.room.room_number }} <br>
+        Статус номера: {% if req.room.is_status == 1 %}Свободен{% elif req.room.is_status == 2%}В заявке{% else %}Занят{% endif %}
+        <form method="post" action="{% url 'approve_request' req.id %}">
+            {% csrf_token %}
+            <button type="submit" name="decision" value="approve">Одобрить</button>
+        </form>
+        <form method="post" action="{% url 'reject_request' req.id %}">
+            {% csrf_token %}
+            <button type="submit" name="decision" value="reject">Отклонить</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
